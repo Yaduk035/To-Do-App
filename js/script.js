@@ -6,7 +6,7 @@ function validateForm() {
         return true
     }
     else {
-        alert("Incorrect username or password")
+        alert("Invalid username or password")
         return false
     }
 }

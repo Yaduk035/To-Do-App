@@ -1,11 +1,9 @@
-// Fetch data from API endpoint
 fetch('https://jsonplaceholder.typicode.com/todos')
   .then(response => response.json())
   .then(data => {
-    // Get the existing table element by ID
+
     const table = document.getElementById('users');
 
-    // Add table headers
     const tableBody = table.getElementsByTagName('tbody')[0];
     const tableHeader = table.createTHead();
     const tableRow = tableHeader.insertRow();
@@ -17,7 +15,7 @@ fetch('https://jsonplaceholder.typicode.com/todos')
     titleHeader.innerHTML = "<b>Title</b>";
     completionHeader.innerHTML = "<b>Completion status</b>";
 
-    // Create a row for each todo item and append it to the table
+
     data.forEach(todo => {
       const row = table.insertRow();
       const cell1 = row.insertCell();
@@ -31,7 +29,7 @@ fetch('https://jsonplaceholder.typicode.com/todos')
       cell3.appendChild(checkbox);
     });
 
-    // Count the number of checked checkboxes and show an alert if there are at least 5
+
     const checkTaskCompletion = new Promise((resolve, reject) => {
       let numChecked = 0;
       const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -50,7 +48,7 @@ fetch('https://jsonplaceholder.typicode.com/todos')
     });
 
     checkTaskCompletion.then(() => {
-      alert('Congrats! 5 tasks have been succesfully completed');
+      alert('Congrats! 5 tasks have been succesfully completed!!');
     });
   })
   .catch(error => console.error(error));
