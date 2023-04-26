@@ -15,6 +15,8 @@ fetch('https://jsonplaceholder.typicode.com/todos')
     titleHeader.innerHTML = "<b>Title</b>";
     completionHeader.innerHTML = "<b>Completion status</b>";
 
+    let numCompleted = 0;
+    let numPopups = 0; // New variable to keep track of how many popups have been displayed
 
     data.forEach(todo => {
       const row = table.insertRow();
@@ -27,28 +29,18 @@ fetch('https://jsonplaceholder.typicode.com/todos')
       checkbox.type = 'checkbox';
       checkbox.checked = todo.completed;
       cell3.appendChild(checkbox);
-    });
-
-
-    const checkTaskCompletion = new Promise((resolve, reject) => {
-      let numChecked = 0;
-      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-      checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', () => {
-          if (checkbox.checked) {
-            numChecked++;
-            if (numChecked >= 5) {
-              resolve();
-            }
-          } else {
-            numChecked--;
+      checkbox.addEventListener('change', () => { // Move checkbox event listener outside of the Promise
+        if (checkbox.checked) {
+          numCompleted++;
+          if (numCompleted % 5 === 0 && numCompleted > numPopups * 5) { // Display popup every 5 checkboxes
+            alert('Congrats! ' + numCompleted + ' tasks have been succesfully completed!!');
+            numPopups++;
           }
-        });
+        } else {
+          numCompleted--;
+        }
       });
     });
 
-    checkTaskCompletion.then(() => {
-      alert('Congrats! 5 tasks have been succesfully completed!!');
-    });
   })
   .catch(error => console.error(error));
